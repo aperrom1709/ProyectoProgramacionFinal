@@ -5,13 +5,18 @@ import Model.db.ConectarBD_TV;
 import Services.impl.ServiceLogger;
 import Utils.CredentialsDB;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 public class UserServices {
     private ServiceLogger logger;
+    public ConectarBD_TV conectarBDTv;
 
-    public void UserService() { // Realizar la conexión
+    public  UserServices() { // Realizar la conexión
         // 1. Crear objeto 'ConectarDB conectarDB = new ConectarDB()'
-        ConectarBD_TV conectarBDTv=new ConectarBD_TV(CredentialsDB.USER,CredentialsDB.PASS,CredentialsDB.DB_NAME);
+        conectarBDTv=new ConectarBD_TV(CredentialsDB.USER,CredentialsDB.PASS,CredentialsDB.DB_NAME);
 
 
 
@@ -20,23 +25,34 @@ public class UserServices {
 
 
         // 3. conectarDB.DesconectarDB()
-        conectarBDTv.desconectarBD();
+
+        this.logger=new ServiceLogger();
     }
 
-    public boolean checkUserExists(User user) {
+    public boolean checkUserExists(String user,String pass) {
+        boolean siono=false;
+        try{
+            PreparedStatement st=conectarBDTv.obtenerConexion().prepareStatement(CredentialsDB.QUERY_LOGIN);
+            st.setString(1,user);
+            st.setString(2,pass);
+            ResultSet rs=st.executeQuery();
+            if (rs.next()){
+                siono=true;
+            }
 
 
-        return false;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return siono;
     }
-    public UserServices() {
-
-        this.logger = new ServiceLogger();
-    }
 
 
-    public boolean checkUserExists(String text, String text1) {
-        return false;
-    }
+
+
 }
 
 

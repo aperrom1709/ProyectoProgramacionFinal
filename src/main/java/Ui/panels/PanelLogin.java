@@ -24,8 +24,8 @@ public class PanelLogin extends JPanel {
     //Este es el frame padre de este frame
     private FrameLogin framePadre;
 
-    UserServices serviceUser = new UserServices();
 
+    UserServices serviceUser=new UserServices();
     MouseListener listenerMouse = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -63,8 +63,11 @@ public class PanelLogin extends JPanel {
     private MouseListener listenerMouseOP = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("Opciones");
-            cargarpanelop();
+            if (serviceUser.checkUserExists(user.getText(),pass.getText())){
+                System.out.println("Opciones");
+                cargarpanelop();
+            }
+
         }
     };
 

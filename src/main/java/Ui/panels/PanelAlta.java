@@ -65,7 +65,7 @@ public class PanelAlta extends JPanel {
         pass.setSize(new Dimension(152,32));
         this.add(pass);
 
-        JLabel passwd2= new JLabel("Passwd2: ");
+        JLabel passwd2= new JLabel("Confirmar Contraseña: ");
         passwd2.setLocation(new Point(200,300));
         passwd2.setSize(new Dimension(152,32));
         this.add(passwd2);

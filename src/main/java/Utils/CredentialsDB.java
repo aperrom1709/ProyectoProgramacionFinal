@@ -3,7 +3,7 @@ package Utils;
 public class CredentialsDB {
     public static final String USER ="root";
     public static final String PASS= "";
-    public static final String DB_NAME = "dbApp";
+    public static final String DB_NAME = "db_app";
 
     //Querys de la aplicacion
     public static String QUERY_LOGIN = "Select * from usuario WHERE id_usuario = ? and pass =?";
