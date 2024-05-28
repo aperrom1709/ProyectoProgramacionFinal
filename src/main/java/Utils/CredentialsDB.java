@@ -11,5 +11,7 @@ public class CredentialsDB {
     public static String QUERY_INSERT_USER_IN_ACCESOS = "INSERT INTO accesos VALUES(?,?)";
     public static String QUERY_UPDATE_NACCESOS = "UPDATE accesos set  NACCESOS= nAccesos+1 where idUsuario = ? ";
 
+    public static String QUERY_INSERT_ALTA = "INSERT INTO usuarios  VALUES (?, ?, ?,?)";
+
 
 }

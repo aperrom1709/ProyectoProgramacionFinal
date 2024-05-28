@@ -2,6 +2,7 @@ package Ui.panels;
 
 
 
+import Services.UserServices;
 import Ui.frames.FrameLogin;
 
 import javax.swing.*;
@@ -11,21 +12,40 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class PanelAlta extends JPanel {
-    JTextField idUser;
-    JTextField  nombre;
-    JTextField pass;
-    JTextField pass2;
+    JTextField user;
+    JTextField  pass;
+    JTextField correo;
+
     JComboBox isadmin;
+    UserServices serviceUser=new UserServices();
     private FrameLogin framepadre;
 
     JButton enviar;
     JButton atras;
+
+
 
     private MouseListener listenerMouseAtras = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("atras pulsado");
             cargarpanelop();
+        }
+    };
+    private MouseListener listenerMouseOP = new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (!serviceUser.checkUserExists(user.getText(),pass.getText())){
+                System.out.println("el usuario ya existe");
+            } else if (serviceUser.registrarUsuario(user.getText(),correo.getText(),pass.getText(), isadmin.isEditable())) {
+                System.out.println("Esta registrado");
+                System.out.println("Opciones");
+
+
+                cargarpanelop();
+            }
+
+
         }
     };
 
@@ -41,19 +61,19 @@ public class PanelAlta extends JPanel {
         idusuario.setSize(new Dimension(152,32));
         // usuario.setFont(new Font("Consolas", Font.BOLD, 22));
         this.add(idusuario);
-        idUser = new JTextField("Introduzca su usuario: ");
-        idUser.setLocation(new Point(260,150));
-        idUser.setSize(new Dimension(152,32));
-        this.add(idUser);
+        user = new JTextField("Introduzca su usuario: ");
+        user.setLocation(new Point(260,150));
+        user.setSize(new Dimension(152,32));
+        this.add(user);
 
-        JLabel nombres =new JLabel("Nombre: ");
-        nombres.setLocation(new Point(200,200));
-        nombres.setSize(new Dimension(152,32));
-        this.add(nombres);
-        nombre=new JTextField("introduce tu nombre: ");
-        nombre.setLocation(new Point(260,200));
-        nombre.setSize(new Dimension(152,32));
-        this.add(nombre);
+        JLabel correos =new JLabel("correo: ");
+        correos.setLocation(new Point(200,200));
+        correos.setSize(new Dimension(152,32));
+        this.add(correos);
+        correo=new JTextField("introduce tu correo: ");
+        correo.setLocation(new Point(260,200));
+        correo.setSize(new Dimension(152,32));
+        this.add(correo);
 
         JLabel passwd = new JLabel("Passwd: ");
         passwd.setLocation(new Point(200,250));
@@ -65,15 +85,6 @@ public class PanelAlta extends JPanel {
         pass.setSize(new Dimension(152,32));
         this.add(pass);
 
-        JLabel passwd2= new JLabel("Confirmar Contraseña: ");
-        passwd2.setLocation(new Point(200,300));
-        passwd2.setSize(new Dimension(152,32));
-        this.add(passwd2);
-
-        pass2 =new JPasswordField();
-        pass2.setLocation(new Point(260,300));
-        pass2.setSize(new Dimension(152,32));
-        this.add(pass2);
 
         JLabel Isadmin=new JLabel("IsAdmin: ");
         Isadmin.setLocation(new Point(200,350));
@@ -92,6 +103,8 @@ public class PanelAlta extends JPanel {
         enviar.setLocation(new Point(220,400));
         enviar.setSize(new Dimension(152,32));
         this.add(enviar);
+        this.addMouseListener(listenerMouseOP);
+
 
         atras=new JButton("atras");
         atras.setLocation(new Point(100,500));

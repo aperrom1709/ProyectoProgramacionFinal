@@ -1,6 +1,5 @@
 package Services;
 
-import Model.Classes.User;
 import Model.db.ConectarBD_TV;
 import Services.impl.ServiceLogger;
 import Utils.CredentialsDB;
@@ -48,6 +47,30 @@ public class UserServices {
 
 
         return siono;
+    }
+    public boolean registrarUsuario(String id_usuario, String pass, String correo,boolean isAdmin ) {
+        boolean siono1=false;
+
+        try{
+            PreparedStatement st1=conectarBDTv.obtenerConexion().prepareStatement(CredentialsDB.QUERY_INSERT_ALTA);
+            // Establecer los parámetros de la sentencia SQL
+            st1.setString(1,id_usuario );
+            st1.setString(2, pass);
+            st1.setString(3, correo);
+            ResultSet rs1=st1.executeQuery();
+            if (rs1.next()){
+                siono1=true;
+            }
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return siono1;
+
+
+
     }
 
 
